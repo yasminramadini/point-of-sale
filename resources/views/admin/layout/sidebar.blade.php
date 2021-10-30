@@ -23,7 +23,7 @@
         <!-- Add icons to the links using the .nav-icon class
                                with font-awesome or any other icon font library -->
         <li class="nav-item">
-          <a href="#" class="nav-link active">
+          <a href="/" class="nav-link @if(request()->is('/')) active @endif">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard
@@ -32,7 +32,7 @@
         </li>
         <li class="nav-header">MASTER</li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="/categories" class="nav-link @if(request()->is('categories')) active @endif">
             <i class="nav-icon fas fa-cube"></i>
             <p>
               Kategori

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,6 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
-
 Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
 
 Route::get('/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
@@ -26,3 +25,11 @@ Route::post('/register/store', [AuthController::class, 'register_store'])->name(
 Route::post('/login/store', [AuthController::class, 'login_store'])->name('login.store');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index']);
+
+    Route::resource('/categories', CategoryController::class);
+    
+    Route::get('/data_categories', [CategoryController::class, 'data']);
+});
