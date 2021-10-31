@@ -37,8 +37,8 @@ class CategoryController extends Controller
             ->addColumn('aksi', function($categories) {
               return '
               <div class="btn-group btn-sm">
-                <button class="btn btn-warning"><i class="fas fa-pencil-alt"></i></button>
-                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                <button class="btn btn-warning" onclick="editForm('. "'/categories/$categories->id'" .')"><i class="fas fa-pencil-alt"></i></button>
+                <button class="btn btn-danger" onclick="deleteForm('. "'/categories/$categories->id'" . ')"><i class="fas fa-trash"></i></button>
               </div>
               ';
             })
@@ -60,7 +60,7 @@ class CategoryController extends Controller
         
         Category::create($validatedData);
         
-        return response()->json('Data berhasil ditambahkan');
+        return response()->json('Kategori berhasil ditambahkan');
     }
 
     /**
@@ -71,7 +71,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::find($id);
+        
+        return response()->json($category);
     }
 
     /**
@@ -94,7 +96,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+          'name' => 'required|unique:categories|min:3|string'
+          ]);
+          
+        Category::where('id', $id)
+              ->update($validatedData);
+        
+        return response()->json('Kategori berhasil diperbarui');
     }
 
     /**
@@ -105,6 +114,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+        
+        return response()->json('Kategori berhasil dihapus');
     }
 }
