@@ -68,47 +68,23 @@
     }
     
     //get category
-    function getData() {
-      $.ajax({
-        url: '/data_categories',
-        type: 'get',
-        success: function(data) {
-          console.log(data)
-          $.each(data, function(index, key) {
-            $('#dataTable tbody').append(
-              `<tr>
-                <td>${index+1}</td>
-                <td>${key.name}</td>
-                <td>
-                  hapus
-                </td>
-              </tr>`
-              )
-          })
-          
-          $("#dataTable").DataTable({
-            "responsive": true, 
-            "autoWidth": false,
-            "paging": true,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": false,
-            "info": true,
-          })
-        },
-        error: function(xhr) {
-          makeAlert('error', 'Gagal!', 'Kategori tidak dapat ditampilkan')
-        }
-      })
-    }
-    
-    getData()
+    var table = $('#dataTable').DataTable({
+      processing: true,
+      ajax: '/data_categories',
+      columns: [
+          {"data" : "DT_RowIndex", "searchable" : false, "sortable" : false},
+          {"data" : "name"},
+          {"data" : "aksi", "searchable" : false, "sortable" : false}
+        ]
+    })
     
     //add category
     $('#addForm').click(function() {
       $('#modal-form').modal('show')
       $('#modal-form form')[0].reset()
       $('#modal-form .modal-title').text('Tambah Kategori')
+      $('#modal-form form .invalid-feedback').html('')
+      $('#modal-form form [name=name]').removeClass('is-invalid')
     })
     
     $('#modal-form').submit(function(event) {
@@ -121,13 +97,12 @@
         success: function(data) {
           makeAlert('success', 'Berhasil!', 'Kategori berhasil ditambahkan')
           $('#modal-form').modal('hide')
-          $('#dataTable').DataTable().destroy()
-          $('#dataTable tbody').empty()
-          getData()
+          table.ajax.reload()
         },
         error: function(xhr) {
           var msg = JSON.parse(xhr.responseText)
-          console.log(msg)
+          $('#modal-form form [name=name]').addClass('is-invalid')
+          $('#modal-form form .invalid-feedback').html(msg.errors.name)
         }
       })
       

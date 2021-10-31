@@ -30,7 +30,20 @@ class CategoryController extends Controller
     public function data() 
     {
       $categories = Category::latest()->get();
-      return response()->json($categories);
+  
+      return datatables()
+            ->of($categories)
+            ->addIndexColumn()
+            ->addColumn('aksi', function($categories) {
+              return '
+              <div class="btn-group btn-sm">
+                <button class="btn btn-warning"><i class="fas fa-pencil-alt"></i></button>
+                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+              </div>
+              ';
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
     }
 
     /**
@@ -42,7 +55,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
       $validatedData = $request->validate([
-        'name' => 'required|min:3|string'
+        'name' => 'required|min:3|string|unique:categories'
         ]);
         
         Category::create($validatedData);
