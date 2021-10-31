@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/categories', CategoryController::class);
     
     Route::get('/data_categories', [CategoryController::class, 'data']);
+    
+    Route::resource('/products', ProductController::class);
+    
+    Route::get('/data_products', [ProductController::class, 'data']);
 });

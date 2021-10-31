@@ -40,7 +40,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="/products" class="nav-link @if(request()->is('products')) active @endif">
             <i class="nav-icon fas fa-cubes"></i>
             <p>
               Produk
