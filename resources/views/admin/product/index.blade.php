@@ -26,7 +26,7 @@
       <button class="btn btn-success" onclick="addForm('/products')"><i class="fas fa-plus-circle"></i> Tambah</button>
 
       <div class="card mt-3">
-        <div class="card-body table-responsive">
+        <div class="card-body table-responsive px-2">
           <table id="dataTable" class="table table-bordered table-striped">
             <thead>
               <tr>
@@ -97,9 +97,37 @@
         },
         error: function(xhr) {
           var msg = JSON.parse(xhr.responseText)
-          $('#modal-form form [name=name]').addClass('is-invalid')
-          $('#modal-form form .invalid-feedback').html(msg.errors.name)
           console.log(msg)
+          if(msg.errors.code) {
+            $('#modal-form form [name=code]').addClass('is-invalid')
+            $('#modal-form form .code .invalid-feedback').html(msg.errors.code)
+          }
+          
+          if(msg.errors.name) {
+            $('#modal-form form [name=name]').addClass('is-invalid')
+            $('#modal-form form .name .invalid-feedback').html(msg.errors.name)
+          }
+          
+          if(msg.errors.stock) {
+            $('#modal-form form [name=stock]').addClass('is-invalid')
+            $('#modal-form form .stock .invalid-feedback').html(msg.errors.stock)
+          }
+          
+          if(msg.errors.purchase_price) {
+            $('#modal-form form [name=purchase_price]').addClass('is-invalid')
+            $('#modal-form form .purchase_price .invalid-feedback').html(msg.errors.purchase_price)
+          }
+          
+          if(msg.errors.selling_price) {
+            $('#modal-form form [name=selling_price]').addClass('is-invalid')
+            $('#modal-form form .selling_price .invalid-feedback').html(msg.errors.selling_price)
+          }
+          
+          if(msg.errors.discount) {
+            $('#modal-form form [name=discount]').addClass('is-invalid')
+            $('#modal-form form .discount .invalid-feedback').html(msg.errors.discount)
+          }
+          
         }
       })
   })
@@ -123,19 +151,24 @@
     //edit category
     function editForm(url) {
       $('#modal-form').modal('show')
-      $('#modal-form .modal-title').text('Edit Kategori')
+      $('#modal-form .modal-title').text('Edit Produk')
       $('#modal-form form')[0].reset()
       $('#modal-form .invalid-feedback').text('')
-      $('#modal-form [name=name]').removeClass('is-invalid')
+      $('#modal-form input').removeClass('is-invalid')
       $('#modal-form [name=_method]').val('put')
       $('#modal-form form').attr('action', url)
-      console.log($('#modal-form form').attr('action'))
 
       $.ajax({
         type: 'get',
         url: url,
         success: function(data) {
           $('#modal-form form [name=name]').val(data.name)
+          $('#modal-form form [name=code]').val(data.code)
+          $('#modal-form form [name=category_id]').val(data.category_id)
+          $('#modal-form form [name=stock]').val(data.stock)
+          $('#modal-form form [name=purchase_price]').val(data.purchase_price)
+          $('#modal-form form [name=selling_price]').val(data.selling_price)
+          $('#modal-form form [name=discount]').val(data.discount)
         },
         error: function(xhr) {
           makeAlert('error', 'Gagal!', 'Gagal menampilkan data')

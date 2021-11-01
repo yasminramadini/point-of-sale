@@ -41,7 +41,7 @@ class ProductController extends Controller
             ->addColumn('aksi', function($products) {
               return '
               <div class="btn-group btn-sm">
-                <button class="btn btn-warning" onclick="editForm('. "'/categories/$products->id'" .')"><i class="fas fa-pencil-alt"></i></button>
+                <button class="btn btn-warning" onclick="editForm('. "'/products/$products->id'" .')"><i class="fas fa-pencil-alt"></i></button>
                 <button class="btn btn-danger" onclick="deleteForm('. "'/categories/$products->id'" . ')"><i class="fas fa-trash"></i></button>
               </div>
               ';
@@ -63,10 +63,10 @@ class ProductController extends Controller
           'name' => 'required|string|unique:products|min:3',
           'stock' => 'required|min:1|integer',
           'purchase_price' => 'required|min:1|integer',
-          'selling_price' => 'required|min:1|integer',
-          'discount' => 'integer'
+          'selling_price' => 'required|min:1|integer'
           ]);
        $validatedData['category_id'] = $request->category_id;
+       $validatedData['discount'] = $request->discount;
        
        Product::create($validatedData);
        
@@ -81,7 +81,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $products = Product::find($id);
+        
+        return response()->json($products);
     }
 
     /**
@@ -104,7 +106,36 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::where('id', $id)->first();
+        
+        $rules = [
+          'stock' => 'required|min:1',
+          'selling_price' => 'required|min:1|integer',
+          'purchase_price' => 'required|min:1|integer'
+          ];
+        
+        if($request->code === $product->code) {
+          $rules['code'] = 'required';
+        }
+        else {
+          $rules['code'] = 'required|unique:products';
+        }
+        
+        if($request->name === $product->name) {
+          $rules['name'] = 'required';
+        }
+        else {
+          $rules['name'] = 'required|unique:products';
+        }
+        
+        $validatedData = $request->validate($rules);
+        
+        $validatedData['category_id'] = $request->category_id;
+        $validatedData['discount'] = $request->discount;
+        
+        $product->update($validatedData);
+        
+        return response()->json('Produk berhasil diperbarui');
     }
 
     /**
