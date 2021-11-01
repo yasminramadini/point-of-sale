@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use PDF;
 
 class ProductController extends Controller
 {
@@ -162,5 +163,17 @@ class ProductController extends Controller
       Product::destroy($request->products_id);
       
       return response()->json('Produk berhasil dihapus');
+    }
+    
+    public function print_barcode(Request $request) 
+    {
+      $products = [];
+      foreach ($request->products_id as $id) {
+        $products[] = Product::find($id);
+      }
+      
+      $pdf = PDF::loadView('admin.product.barcode', ['products' => $products, 'no' => 1]);
+      $pdf->setPaper('A4', 'potrait');
+      return $pdf->stream('produk.pdf');
     }
 }

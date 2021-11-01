@@ -39,4 +39,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/data_products', [ProductController::class, 'data']);
     
     Route::post('/delete_all_products', [ProductController::class, 'delete_all_products']);
+    
+    Route::post('/print_barcode', [ProductController::class, 'print_barcode']);
 });

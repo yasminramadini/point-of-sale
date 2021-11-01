@@ -26,6 +26,7 @@
       <div class="btn-group">
         <button class="btn btn-success" onclick="addForm('/products')"><i class="fas fa-plus-circle"></i> Tambah</button>
         <button class="btn btn-danger" id="delete_all" onclick="delete_all('/delete_all_products')">Hapus Banyak</button>
+        <button class="btn btn-info" onclick="print_barcode('/print_barcode')">Cetak Barcode</button>
       </div>
 
       <div class="card mt-3">
@@ -236,6 +237,18 @@
         })
         }
       
+    }
+    
+    //print Barcode
+    function print_barcode(url) {
+       if($('.form-product tbody input:checked').length < 3) {
+         makeAlert('warning', 'Perhatian!', 'Minimal pilih 3 produk')
+         return false
+       }
+       
+       $('.form-product').attr('action', url)
+         .attr('target', '_blank')
+         .submit()
     }
  
 </script>
