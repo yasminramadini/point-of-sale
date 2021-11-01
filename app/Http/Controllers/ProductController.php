@@ -42,7 +42,7 @@ class ProductController extends Controller
               return '
               <div class="btn-group btn-sm">
                 <button class="btn btn-warning" onclick="editForm('. "'/products/$products->id'" .')"><i class="fas fa-pencil-alt"></i></button>
-                <button class="btn btn-danger" onclick="deleteForm('. "'/categories/$products->id'" . ')"><i class="fas fa-trash"></i></button>
+                <button class="btn btn-danger" onclick="deleteForm('. "'/products/$products->id'" . ')"><i class="fas fa-trash"></i></button>
               </div>
               ';
             })
@@ -146,6 +146,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+        
+        return response()->json('Produk berhasil dihapus');
     }
 }

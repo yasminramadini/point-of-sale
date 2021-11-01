@@ -179,7 +179,7 @@
     //delete category
     function deleteForm(url) {
       
-      if(confirm('Yakin mau menghapus kategori?')) {
+      if(confirm('Yakin mau menghapus produk?')) {
       
       $.ajax({
         type: 'delete',
@@ -193,7 +193,7 @@
           table.ajax.reload()
         },
         error: function(xhr) {
-          makeAlert('error', 'Gagal!', 'Gagal menghapus kategori')
+          makeAlert('error', 'Gagal!', 'Gagal menghapus produk')
         }
       })
     
