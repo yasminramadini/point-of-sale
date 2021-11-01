@@ -23,13 +23,21 @@
   <section class="content">
     <div class="container-fluid">
       
-      <button class="btn btn-success" onclick="addForm('/products')"><i class="fas fa-plus-circle"></i> Tambah</button>
+      <div class="btn-group">
+        <button class="btn btn-success" onclick="addForm('/products')"><i class="fas fa-plus-circle"></i> Tambah</button>
+        <button class="btn btn-danger" id="delete_all" onclick="delete_all('/delete_all_products')">Hapus Banyak</button>
+      </div>
 
       <div class="card mt-3">
         <div class="card-body table-responsive px-2">
-          <table id="dataTable" class="table table-bordered table-striped">
+          <form class="form-product" action="" method="post">
+            @csrf
+            <table id="dataTable" class="table table-bordered table-striped">
             <thead>
               <tr>
+                <th>
+                  <input type="checkbox" id="select_all" style="position:relative">
+                </th>
                 <th style="width: 5%;">No</th>
                 <th>Nama</th>
                 <th>Kategori</th>
@@ -42,6 +50,7 @@
             </thead>
             <tbody></tbody>
           </table>
+          </form>
         </div>
         <!-- /.card-body -->
       </div>
@@ -132,11 +141,14 @@
       })
   })
     
-    //get category
+    //get product
     var table = $('#dataTable').DataTable({
       processing: true,
       ajax: '/data_products',
       columns: [
+          {"data" : "select_all", "sortable" : false, "searchable" : false,
+            "ordering" : false
+          },
           {"data" : "DT_RowIndex", "searchable" : false, "sortable" : false},
           {"data" : "name"},
           {"data" : "category.name", "searchable" : false, "sortable" : false},
@@ -200,5 +212,31 @@
       }
     
     }
+    
+    //select all 
+    $('#select_all').on('click', function() {
+      $(':checkbox').prop('checked', this.checked)
+    })
+    
+    function delete_all(url) {
+      if($('.form-product input:checked').length < 1) {
+        makeAlert('warning', 'Perhatian!', 'Silahkan pilih produk')
+        return false
+      }
+      
+      if(confirm('Yakin mau menghapus produk terpilih?')) {
+        
+        $.post(url, $('.form-product').serialize())
+        .done(data => {
+          makeAlert('success', 'Berhasil', data)
+          table.ajax.reload()
+        })
+        .fail(xhr => {
+          makeAlert('error', 'Gagal!', 'Gagal menghapus data')
+        })
+        }
+      
+    }
+ 
 </script>
 @endsection

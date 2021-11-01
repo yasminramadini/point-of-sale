@@ -37,4 +37,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/products', ProductController::class);
     
     Route::get('/data_products', [ProductController::class, 'data']);
+    
+    Route::post('/delete_all_products', [ProductController::class, 'delete_all_products']);
 });
