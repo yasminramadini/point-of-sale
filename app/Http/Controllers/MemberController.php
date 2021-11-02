@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\Product;
-use PDF;
+use App\Models\Member;
 
-class ProductController extends Controller
+class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +14,38 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.product.index', [
-          'title' => 'Products',
-          'categories' => Category::latest()->get()
+        return view('admin.member.index', [
+          'title' => 'Members'
           ]);
+    }
+    
+    public function data()
+    {
+      $members = Member::latest()->get();
+      
+      return datatables()
+            ->of($members)
+            ->addIndexColumn()
+            ->addColumn('select_all', function($members) {
+              return '
+              <input type="checkbox" name="products_id[]" value='. "'$members->id'" . '>
+              ';
+            })
+            ->addColumn('code', function($members) {
+              return '
+              <span class="badge badge-success">'. $members->code . '</span>
+              ';
+            })
+            ->addColumn('aksi', function($members) {
+              return '
+              <div class="btn-group btn-sm">
+                <button class="btn btn-warning" onclick="editForm('. "'/products/$members->id'" .')"><i class="fas fa-pencil-alt"></i></button>
+                <button class="btn btn-danger" onclick="deleteForm('. "'/products/$members->id'" . ')"><i class="fas fa-trash"></i></button>
+              </div>
+              ';
+            })
+           ->rawColumns(['aksi', 'select_all', 'code'])
+           ->make(true);
     }
 
     /**
@@ -29,36 +55,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        
-    }
-    
-    public function data()
-    {
-      $products = Product::latest()->get();
-      
-      return datatables()
-            ->of($products)
-            ->addIndexColumn()
-            ->addColumn('code', function($products) {
-              return '
-              <span class="badge badge-success">'. $products->code . '</span>
-              ';
-            })
-            ->addColumn('select_all', function($products) {
-              return '
-              <input type="checkbox" name="products_id[]" value='. "'$products->id'" . '>
-              ';
-            })
-            ->addColumn('aksi', function($products) {
-              return '
-              <div class="btn-group btn-sm">
-                <button class="btn btn-warning" onclick="editForm('. "'/products/$products->id'" .')"><i class="fas fa-pencil-alt"></i></button>
-                <button class="btn btn-danger" onclick="deleteForm('. "'/products/$products->id'" . ')"><i class="fas fa-trash"></i></button>
-              </div>
-              ';
-            })
-           ->rawColumns(['aksi', 'select_all', 'code'])
-           ->make(true);
+        //
     }
 
     /**
@@ -70,18 +67,15 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-          'code' => 'required|unique:products',
+          'code' => 'required|unique:members',
           'name' => 'required|string|unique:products|min:3',
-          'stock' => 'required|min:1|integer',
-          'purchase_price' => 'required|min:1|integer',
-          'selling_price' => 'required|min:1|integer'
+          'phone' => 'required|min:1|integer',
+          'address' => 'required|min:5',
           ]);
-       $validatedData['category_id'] = $request->category_id;
-       $validatedData['discount'] = $request->discount;
+
+       Member::create($validatedData);
        
-       Product::create($validatedData);
-       
-       return response()->json('Produk berhasil ditambahkan');
+       return response()->json('Member berhasil ditambahkan');
     }
 
     /**
@@ -100,18 +94,6 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -147,6 +129,18 @@ class ProductController extends Controller
         $product->update($validatedData);
         
         return response()->json('Produk berhasil diperbarui');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**

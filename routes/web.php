@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\MemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,4 +42,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/delete_all_products', [ProductController::class, 'delete_all_products']);
     
     Route::post('/print_barcode', [ProductController::class, 'print_barcode']);
+    
+    Route::resource('/members', MemberController::class);
+    
+    Route::get('/data_members', [MemberController::class, 'data']);
 });

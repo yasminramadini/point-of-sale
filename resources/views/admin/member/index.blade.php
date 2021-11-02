@@ -9,7 +9,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Produk</h1>
+          <h1 class="m-0">Member</h1>
         </div>
         <!-- /.col -->
       </div>
@@ -24,9 +24,9 @@
     <div class="container-fluid">
       
       <div class="btn-group">
-        <button class="btn btn-success" onclick="addForm('/products')"> Tambah</button>
+        <button class="btn btn-success" onclick="addForm('/members')"> Tambah</button>
         <button class="btn btn-danger" id="delete_all" onclick="delete_all('/delete_all_products')">Hapus Banyak</button>
-        <button class="btn btn-info" onclick="print_barcode('/print_barcode')">Cetak Barcode</button>
+        <button class="btn btn-info" onclick="print_barcode('/print_barcode')">Cetak Kartu</button>
       </div>
 
       <div class="card mt-3">
@@ -42,11 +42,8 @@
                 <th style="width: 5%;">No</th>
                 <th>Kode</th>
                 <th>Nama</th>
-                <th>Kategori</th>
-                <th>Stok</th>
-                <th>Harga Beli</th>
-                <th>Harga Jual</th>
-                <th>Diskon</th>
+                <th>Telepon</th>
+                <th>Alamat</th>
                 <th style="style: 15%;"><i class="fas fa-cog"></i></th>
               </tr>
             </thead>
@@ -65,7 +62,7 @@
 </div>
 
 <!-- modal form -->
-@include('admin.product.form')
+@include('admin.member.form')
 
 <!-- /.content-wrapper -->
 @endsection
@@ -86,10 +83,10 @@
   function addForm(url) {
       $('#modal-form').modal('show')
       $('#modal-form form')[0].reset()
-      $('#modal-form .modal-title').text('Tambah Produk')
+      $('#modal-form .modal-title').text('Tambah Member')
       $('#modal-form form .invalid-feedback').html('')
       $('#modal-form form input').removeClass('is-invalid')
-      $('#modal-form form').attr('action', '/products')
+      $('#modal-form form').attr('action', url)
       $('#modal-form form [name=_method]').val('post')
     }
     
@@ -119,24 +116,14 @@
             $('#modal-form form .name .invalid-feedback').html(msg.errors.name)
           }
           
-          if(msg.errors.stock) {
-            $('#modal-form form [name=stock]').addClass('is-invalid')
-            $('#modal-form form .stock .invalid-feedback').html(msg.errors.stock)
+          if(msg.errors.phone) {
+            $('#modal-form form [name=phone]').addClass('is-invalid')
+            $('#modal-form form .phone .invalid-feedback').html(msg.errors.phone)
           }
           
-          if(msg.errors.purchase_price) {
-            $('#modal-form form [name=purchase_price]').addClass('is-invalid')
-            $('#modal-form form .purchase_price .invalid-feedback').html(msg.errors.purchase_price)
-          }
-          
-          if(msg.errors.selling_price) {
-            $('#modal-form form [name=selling_price]').addClass('is-invalid')
-            $('#modal-form form .selling_price .invalid-feedback').html(msg.errors.selling_price)
-          }
-          
-          if(msg.errors.discount) {
-            $('#modal-form form [name=discount]').addClass('is-invalid')
-            $('#modal-form form .discount .invalid-feedback').html(msg.errors.discount)
+          if(msg.errors.address) {
+            $('#modal-form form [name=addClass]').addClass('is-invalid')
+            $('#modal-form form .address .invalid-feedback').html(msg.errors.address)
           }
           
         }
@@ -146,22 +133,19 @@
     //get product
     var table = $('#dataTable').DataTable({
       processing: true,
-      ajax: '/data_products',
+      ajax: '/data_members',
       columns: [
           {"data" : "select_all", "sortable" : false, "searchable" : false,
             "ordering" : false
           },
-          {"data" : "code", 
+          {"data" : "DT_RowIndex", "searchable" : false, "sortable" : false},
+          {"data" : "code",
             "searchable" : false,
             "sortable" : false
           },
-          {"data" : "DT_RowIndex", "searchable" : false, "sortable" : false},
           {"data" : "name"},
-          {"data" : "category.name", "searchable" : false, "sortable" : false},
-          {"data" : "stock", "searchable" : false, "sortable" : false},
-          {"data" : "purchase_price", "searchable" : false, "sortable" : false},
-          {"data" : "selling_price", "searchable" : false, "sortable" : false},
-          {"data" : "discount", "searchable" : false, "sortable" : false},
+          {"data" : "phone", "searchable" : false, "sortable" : false},
+          {"data" : "address", "searchable" : false, "sortable" : false},
           {"data" : "aksi", "searchable" : false, "sortable" : false},
         ]
     })

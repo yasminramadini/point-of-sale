@@ -48,6 +48,14 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="/members" class="nav-link @if(request()->is('members')) active @endif">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              Member
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-truck"></i>
             <p>
