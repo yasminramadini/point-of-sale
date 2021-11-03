@@ -65,7 +65,7 @@
         </li>
         <li class="nav-header">TRANSAKSI</li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="/expenses" class="nav-link @if(request()->is('expenses')) active @endif">
             <i class="nav-icon fas fa-money-bill-alt nav-icon"></i>
             <p>
               Pengeluaran

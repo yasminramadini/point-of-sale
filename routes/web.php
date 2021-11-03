@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\ExpenseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,4 +56,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/suppliers', SupplierController::class);
     
     Route::get('/data_suppliers', [SupplierController::class,'data']);
+    
+    Route::resource('/expenses', ExpenseController::class);
+    
+    Route::get('/data_expenses', [ExpenseController::class, 'data']);
 });
