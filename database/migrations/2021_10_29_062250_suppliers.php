@@ -17,7 +17,7 @@ class Suppliers extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
-            $table->text('address');
+            $table->text('address')->nullable();
             $table->timestamps();
         });
     }

@@ -9,7 +9,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Member</h1>
+          <h1 class="m-0">Supplier</h1>
         </div>
         <!-- /.col -->
       </div>
@@ -24,23 +24,15 @@
     <div class="container-fluid">
       
       <div class="btn-group">
-        <button class="btn btn-success" onclick="addForm('/members')"> Tambah</button>
-        <button class="btn btn-danger" id="delete_all" onclick="delete_all('/delete_all_members')">Hapus Banyak</button>
-        <button class="btn btn-info" onclick="print_card('/print_card')">Cetak Kartu</button>
+        <button class="btn btn-success" onclick="addForm('/suppliers')"> Tambah</button>
       </div>
 
       <div class="card mt-3">
         <div class="card-body table-responsive px-2">
-          <form class="form-member" action="" method="post">
-            @csrf
             <table id="dataTable" class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>
-                  <input type="checkbox" id="select_all" style="position:relative">
-                </th>
                 <th style="width: 5%;">No</th>
-                <th>Kode</th>
                 <th>Nama</th>
                 <th>Telepon</th>
                 <th>Alamat</th>
@@ -49,7 +41,7 @@
             </thead>
             <tbody></tbody>
           </table>
-          </form>
+
         </div>
         <!-- /.card-body -->
       </div>
@@ -62,7 +54,7 @@
 </div>
 
 <!-- modal form -->
-@include('admin.member.form')
+@include('admin.supplier.form')
 
 <!-- /.content-wrapper -->
 @endsection
@@ -83,7 +75,7 @@
   function addForm(url) {
       $('#modal-form').modal('show')
       $('#modal-form form')[0].reset()
-      $('#modal-form .modal-title').text('Tambah Member')
+      $('#modal-form .modal-title').text('Tambah Supplier')
       $('#modal-form form .invalid-feedback').html('')
       $('#modal-form form input').removeClass('is-invalid')
       $('#modal-form form').attr('action', url)
@@ -105,12 +97,7 @@
         },
         error: function(xhr) {
           var msg = JSON.parse(xhr.responseText)
-          console.log(msg)
-          if(msg.errors.code) {
-            $('#modal-form form [name=code]').addClass('is-invalid')
-            $('#modal-form form .code .invalid-feedback').html(msg.errors.code)
-          }
-          
+
           if(msg.errors.name) {
             $('#modal-form form [name=name]').addClass('is-invalid')
             $('#modal-form form .name .invalid-feedback').html(msg.errors.name)
@@ -122,7 +109,7 @@
           }
           
           if(msg.errors.address) {
-            $('#modal-form form [name=addClass]').addClass('is-invalid')
+            $('#modal-form form [name=address]').addClass('is-invalid')
             $('#modal-form form .address .invalid-feedback').html(msg.errors.address)
           }
           
@@ -133,21 +120,18 @@
     //get product
     var table = $('#dataTable').DataTable({
       processing: true,
-      ajax: '/data_members',
+      ajax: '/data_suppliers',
       columns: [
-          {"data" : "select_all", "sortable" : false, "searchable" : false,
-            "ordering" : false
-          },
           {"data" : "DT_RowIndex", "searchable" : false, "sortable" : false},
-          {"data" : "code",
-            "searchable" : false,
-            "sortable" : false
-          },
           {"data" : "name"},
           {"data" : "phone", "searchable" : false, "sortable" : false},
-          {"data" : "address", "searchable" : false, "sortable" : false, "defaultContent" : "<p class='text-center'>-</p>"},
+          {"data" : "address", 
+            "searchable" : false,
+            "sortable" : false, 
+            "defaultContent" : "<p class='text-center'>-</p>"
+          },
           {"data" : "aksi", "searchable" : false, "sortable" : false},
-        ]
+        ],
     })
     
     //edit category
@@ -165,7 +149,6 @@
         url: url,
         success: function(data) {
           $('#modal-form form [name=name]').val(data.name)
-          $('#modal-form form [name=code]').val(data.code)
           $('#modal-form form [name=phone]').val(data.phone)
           $('#modal-form form [name=address]').val(data.address)
         },
@@ -178,7 +161,7 @@
     //delete category
     function deleteForm(url) {
       
-      if(confirm('Yakin mau menghapus member?')) {
+      if(confirm('Yakin mau menghapus supplier?')) {
       
       $.ajax({
         type: 'delete',
@@ -192,50 +175,12 @@
           table.ajax.reload()
         },
         error: function(xhr) {
-          makeAlert('error', 'Gagal!', 'Gagal menghapus member')
+          makeAlert('error', 'Gagal!', 'Gagal menghapus supplier')
         }
       })
     
       }
     
     }
-    
-    //select all 
-    $('#select_all').on('click', function() {
-      $(':checkbox').prop('checked', this.checked)
-    })
-    
-    function delete_all(url) {
-      if($('.form-member input:checked').length < 1) {
-        makeAlert('warning', 'Perhatian!', 'Silahkan pilih member')
-        return false
-      }
-      
-      if(confirm('Yakin mau menghapus member terpilih?')) {
-        
-        $.post(url, $('.form-member').serialize())
-        .done(data => {
-          makeAlert('success', 'Berhasil', data)
-          table.ajax.reload()
-        })
-        .fail(xhr => {
-          makeAlert('error', 'Gagal!', 'Gagal menghapus member')
-        })
-        }
-      
-    }
-    
-    //print card
-    function print_card(url) {
-       if($('.form-member tbody input:checked').length < 1) {
-         makeAlert('warning', 'Perhatian!', 'Silahkan pilih member')
-         return false
-       }
-       
-       $('.form-member').attr('action', url)
-         .attr('target', '_blank')
-         .submit()
-    }
- 
 </script>
 @endsection

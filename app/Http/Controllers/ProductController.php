@@ -52,8 +52,8 @@ class ProductController extends Controller
             ->addColumn('aksi', function($products) {
               return '
               <div class="btn-group btn-sm">
-                <button class="btn btn-warning" onclick="editForm('. "'/products/$products->id'" .')"><i class="fas fa-pencil-alt"></i></button>
-                <button class="btn btn-danger" onclick="deleteForm('. "'/products/$products->id'" . ')"><i class="fas fa-trash"></i></button>
+                <button type="button" class="btn btn-warning" onclick="editForm('. "'/products/$products->id'" .')"><i class="fas fa-pencil-alt"></i></button>
+                <button type="button" class="btn btn-danger" onclick="deleteForm('. "'/products/$products->id'" . ')"><i class="fas fa-trash"></i></button>
               </div>
               ';
             })

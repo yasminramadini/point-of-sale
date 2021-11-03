@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Member;
+use PDF;
 
 class MemberController extends Controller
 {
@@ -28,7 +29,7 @@ class MemberController extends Controller
             ->addIndexColumn()
             ->addColumn('select_all', function($members) {
               return '
-              <input type="checkbox" name="products_id[]" value='. "'$members->id'" . '>
+              <input type="checkbox" name="members_id[]" value='. "'$members->id'" . '>
               ';
             })
             ->addColumn('code', function($members) {
@@ -39,8 +40,8 @@ class MemberController extends Controller
             ->addColumn('aksi', function($members) {
               return '
               <div class="btn-group btn-sm">
-                <button class="btn btn-warning" onclick="editForm('. "'/products/$members->id'" .')"><i class="fas fa-pencil-alt"></i></button>
-                <button class="btn btn-danger" onclick="deleteForm('. "'/products/$members->id'" . ')"><i class="fas fa-trash"></i></button>
+                <button type="button" class="btn btn-warning" onclick="editForm('. "'/members/$members->id'" .')"><i class="fas fa-pencil-alt"></i></button>
+                <button type="button" class="btn btn-danger" onclick="deleteForm('. "'/members/$members->id'" . ')"><i class="fas fa-trash"></i></button>
               </div>
               ';
             })
@@ -69,9 +70,9 @@ class MemberController extends Controller
         $validatedData = $request->validate([
           'code' => 'required|unique:members',
           'name' => 'required|string|unique:products|min:3',
-          'phone' => 'required|min:1|integer',
-          'address' => 'required|min:5',
+          'phone' => 'required|min:1|integer'
           ]);
+       $validatedData['address'] = $request->address;
 
        Member::create($validatedData);
        
@@ -86,9 +87,9 @@ class MemberController extends Controller
      */
     public function show($id)
     {
-        $products = Product::find($id);
+        $member = Member::find($id);
         
-        return response()->json($products);
+        return response()->json($member);
     }
 
     /**
@@ -99,36 +100,26 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = Product::where('id', $id)->first();
+        $member = Member::where('id', $id)->first();
         
         $rules = [
-          'stock' => 'required|min:1',
-          'selling_price' => 'required|min:1|integer',
-          'purchase_price' => 'required|min:1|integer'
+          'name' => 'required',
+          'phone' => 'required|integer',
           ];
         
-        if($request->code === $product->code) {
+        if($request->code === $member->code) {
           $rules['code'] = 'required';
         }
         else {
-          $rules['code'] = 'required|unique:products';
-        }
-        
-        if($request->name === $product->name) {
-          $rules['name'] = 'required';
-        }
-        else {
-          $rules['name'] = 'required|unique:products';
+          $rules['code'] = 'required|unique:members';
         }
         
         $validatedData = $request->validate($rules);
+        $validatedData['address'] = $request->address;
         
-        $validatedData['category_id'] = $request->category_id;
-        $validatedData['discount'] = $request->discount;
+        $member->update($validatedData);
         
-        $product->update($validatedData);
-        
-        return response()->json('Produk berhasil diperbarui');
+        return response()->json('Member berhasil diperbarui');
     }
 
     /**
@@ -151,17 +142,17 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id);
-        $product->delete();
+        $member = Member::find($id);
+        $member->delete();
         
-        return response()->json('Produk berhasil dihapus');
+        return response()->json('Member berhasil dihapus');
     }
     
-    public function delete_all_products(Request $request) 
+    public function delete_all_members(Request $request) 
     {
-      Product::destroy($request->products_id);
+      Member::destroy($request->members_id);
       
-      return response()->json('Produk berhasil dihapus');
+      return response()->json('Member berhasil dihapus');
     }
     
     public function print_barcode(Request $request) 
@@ -174,5 +165,18 @@ class MemberController extends Controller
       $pdf = PDF::loadView('admin.product.barcode', ['products' => $products, 'no' => 1]);
       $pdf->setPaper('A4', 'potrait');
       return $pdf->stream('produk.pdf');
+    }
+    
+    public function print_card(Request $request)
+    {
+      $members = [];
+      
+      foreach ($request->members_id as $id) {
+        $members[] = Member::find($id);
+      }
+      
+      $pdf = PDF::loadView('admin.member.card', ['members' => $members, 'no' => 1]);
+      $pdf->setPaper('A4', 'portrait');
+      return $pdf->stream('member_card.pdf');
     }
 }

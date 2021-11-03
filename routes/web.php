@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,4 +47,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/members', MemberController::class);
     
     Route::get('/data_members', [MemberController::class, 'data']);
+    
+    Route::post('/delete_all_members', [MemberController::class, 'delete_all_members']);
+    
+    Route::post('/print_card', [MemberController::class, 'print_card']);
+    
+    Route::resource('/suppliers', SupplierController::class);
+    
+    Route::get('/data_suppliers', [SupplierController::class,'data']);
 });
