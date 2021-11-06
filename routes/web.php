@@ -8,6 +8,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\PurchaseDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,4 +62,16 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/expenses', ExpenseController::class);
     
     Route::get('/data_expenses', [ExpenseController::class, 'data']);
+    
+    Route::resource('/purchases', PurchaseController::class);
+    
+    Route::get('/data_purchases', [PurchaseController::class, 'data']);
+    
+    Route::resource('/purchase_detail', PurchaseDetailController::class);
+    
+    Route::get('/data_purchase_detail', [PurchaseDetailController::class, 'data']);
+    
+    Route::get('/count_subtotal', [PurchaseDetailController::class, 'count_subtotal']);
+    
+    Route::post('/save_purchase', [PurchaseController::class, 'save_purchase']);
 });

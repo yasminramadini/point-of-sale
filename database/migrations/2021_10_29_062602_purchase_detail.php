@@ -20,7 +20,6 @@ class PurchaseDetail extends Migration
             $table->integer('price');
             $table->integer('qty');
             $table->integer('subtotal');
-            $table->integer('role');
             $table->timestamps();
         });
     }

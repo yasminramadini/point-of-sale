@@ -72,7 +72,7 @@
             </p>
           </a>
           <li class="nav-item">
-            <a href="pages/UI/general.html" class="nav-link">
+            <a href="/purchases" class="nav-link @if(request()->is('purchases')) active @endif">
               <i class="nav-icon fas fa-download"></i>
               <p>
                 Daftar Pembelian
@@ -80,7 +80,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/UI/icons.html" class="nav-link">
+            <a href="/purchase_detail" class="nav-link @if(request()->is('purchase_detail')) active @endif">
               <i class="nav-icon fas fa-shopping-bag"></i>
               <p>
                 Transaksi Pembelian
@@ -88,7 +88,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/UI/buttons.html" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-upload"></i>
               <p>
                 Daftar Penjualan
