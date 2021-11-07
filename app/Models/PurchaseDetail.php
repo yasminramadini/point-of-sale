@@ -11,6 +11,7 @@ class PurchaseDetail extends Model
     
     protected $table = 'purchase_detail';
     protected $guarded = ['id'];
+    protected $with = ['product', 'purchase'];
     
     public function product()
     {

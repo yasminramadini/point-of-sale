@@ -151,11 +151,8 @@
           {"data" : "select_all", "sortable" : false, "searchable" : false,
             "ordering" : false
           },
-          {"data" : "code", 
-            "searchable" : false,
-            "sortable" : false
-          },
           {"data" : "DT_RowIndex", "searchable" : false, "sortable" : false},
+          {"data" : "code", "searchable": false, "sortable": false},
           {"data" : "name"},
           {"data" : "category.name", "searchable" : false, "sortable" : false},
           {"data" : "stock", "searchable" : false, "sortable" : false},

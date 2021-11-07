@@ -49,6 +49,12 @@ class ProductController extends Controller
               <input type="checkbox" name="products_id[]" value='. "'$products->id'" . '>
               ';
             })
+            ->addColumn('purchase_price', function($products) {
+              return 'Rp ' . number_format($products->purchase_price, 0, ',', '.');
+            })
+            ->addColumn('selling_price', function($products) {
+              return 'Rp ' . number_format($products->selling_price, 0, ',', '.');
+            })
             ->addColumn('aksi', function($products) {
               return '
               <div class="btn-group btn-sm">
@@ -57,7 +63,7 @@ class ProductController extends Controller
               </div>
               ';
             })
-           ->rawColumns(['aksi', 'select_all', 'code'])
+           ->rawColumns(['aksi', 'select_all', 'code', 'purchase_price', 'selling_price'])
            ->make(true);
     }
 
@@ -72,7 +78,7 @@ class ProductController extends Controller
         $validatedData = $request->validate([
           'code' => 'required|unique:products',
           'name' => 'required|string|unique:products|min:3',
-          'stock' => 'required|min:1|integer',
+          'stock' => 'required|integer',
           'purchase_price' => 'required|min:1|integer',
           'selling_price' => 'required|min:1|integer'
           ]);
@@ -120,7 +126,7 @@ class ProductController extends Controller
         $product = Product::where('id', $id)->first();
         
         $rules = [
-          'stock' => 'required|min:1',
+          'stock' => 'required',
           'selling_price' => 'required|min:1|integer',
           'purchase_price' => 'required|min:1|integer'
           ];

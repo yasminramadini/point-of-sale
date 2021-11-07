@@ -74,4 +74,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/count_subtotal', [PurchaseDetailController::class, 'count_subtotal']);
     
     Route::post('/save_purchase', [PurchaseController::class, 'save_purchase']);
+    
+    Route::get('/item_purchase/{id}', [PurchaseController::class, 'item_purchase']);
 });

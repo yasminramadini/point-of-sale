@@ -50,8 +50,8 @@ class PurchaseController extends Controller
             ->addColumn('aksi', function($purchases) {
               return '
                 <div class="btn-group btn-group-sm">
-                  <button class="btn btn-info"><i class="fas fa-eye"></i></button>
-                  <button class="btn btn-danger"><i class="fas fa-times"></i></button>
+                  <button class="btn btn-info"><i class="fas fa-eye" onclick="itemPurchase('. "$purchases->id" .')"></i></button>
+                    <button class="btn btn-danger" onclick="deletePurchase('. "$purchases->id" .')"><i class="fas fa-times"></i></button>
                 </div>
               ';
             })
@@ -143,7 +143,7 @@ class PurchaseController extends Controller
       }
       
       $findPurchase->status = null;
-      $findPurchase->total_price = $request->total_price;
+      $findPurchase->total_price = $request->paid;
       $findPurchase->total_item = $request->total_item;
       $findPurchase->paid = $request->paid;
       $findPurchase->update();
@@ -159,8 +159,48 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Purchase $purchase)
+    public function destroy($id)
     {
-        //
+        //kurangi stok produk 
+        $getPurchaseDetail = Purchase::find($id)->purchase_detail;
+        
+        foreach ($getPurchaseDetail as $row) {
+          $updateStock = Product::find($row->product_id);
+          $updateStock->stock = $updateStock->stock - $row->qty;
+          $updateStock->update();
+        }
+        
+        //hapus pembelian
+        Purchase::destroy($id);
+        
+        return response()->json('Pembelian berhasil dibatalkan');
+    }
+    
+    public function item_purchase($id)
+    {
+      $getPurchase = Purchase::find($id)->purchase_detail;
+      
+      $getItem = [];
+      foreach ($getPurchase as $key => $row) {
+        $getItem[] = $row->product;
+        $getItem[$key]['qty'] = $row->qty;
+      }
+      
+      return datatables()
+            ->of($getItem)
+            ->addIndexColumn()
+            ->addColumn('code', function($getItem) {
+              return '<span class="badge badge-success">'. $getItem->code .'</span>';
+            })
+            ->addColumn('subtotal', function($getItem) {
+              return 'Rp ' . number_format($getItem->purchase_price * $getItem->qty, 0, ',', '.');
+            })
+            ->addColumn('purchase_price', function($getItem) {
+              return 'Rp ' . number_format($getItem->purchase_price, 0, ',', '.');
+            })
+            ->rawColumns(['purchase_price', 'subtotal', 'code'])
+            ->make(true);
+      
+      return response()->json($getItem);
     }
 }

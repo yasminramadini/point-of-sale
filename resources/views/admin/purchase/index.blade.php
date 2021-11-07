@@ -58,6 +58,7 @@
 
 <!-- modal form -->
 @include('admin.purchase.form')
+@include('admin.purchase.item')
 
 <!-- /.content-wrapper -->
 @endsection
@@ -169,14 +170,14 @@
       })
     }
     
-    //delete category
-    function deleteForm(url) {
+    //delete purchase
+    function deletePurchase(id) {
       
-      if(confirm('Yakin mau menghapus supplier?')) {
+      if(confirm('Membatalkan pembelian akan mengembalikan stok produk ke semula, yakin mau dibatalkan?')) {
       
       $.ajax({
         type: 'delete',
-        url: url,
+        url: '/purchases/' + id,
         data: {
           '_token': '{{ csrf_token() }}',
           '_method': 'delete'
@@ -186,7 +187,7 @@
           table.ajax.reload()
         },
         error: function(xhr) {
-          makeAlert('error', 'Gagal!', 'Gagal menghapus supplier')
+          makeAlert('error', 'Gagal!', 'Gagal menghapus pembelian')
         }
       })
     
@@ -195,6 +196,23 @@
     }
     
     $('#supplierTable').DataTable()
+    
+    //item purchase 
+    function itemPurchase(id) {
+      $('#modal-item #itemTable').DataTable().destroy()
+      $('#modal-item').modal('show')
+      $('#modal-item #itemTable').DataTable({
+        ajax: '/item_purchase/' + id,
+        columns: [
+          {"data" : "DT_RowIndex", "searchable" : false, "sortable" : false},
+          {"data" : "code", "searchable" : false, "sortable" : false},
+          {"data" : "name", "searchable" : false, "sortable" : false},
+          {"data" : "qty", "searchable" : false, "sortable" : false},
+          {"data" : "purchase_price", "searchable" : false, "sortable" : false},
+          {"data" : "subtotal", "searchable" : false, "sortable" : false},
+          ]
+      })
+    }
     
 </script>
 @endsection

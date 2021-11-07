@@ -21,11 +21,11 @@ class PurchaseDetailController extends Controller
         $supplier = Supplier::find(session('supplier_id'));
         
         if(!session('supplier_id')) {
-          abort(404);
+          abort(403, 'Silahkan buat transaksi baru');
         } 
         
         if(!session('purchase_id')) {
-          abort(404);
+          abort(403, 'Silahkan buat transaksi baru');
         }
         
         return view('admin.purchase_detail.index', [
@@ -46,7 +46,9 @@ class PurchaseDetailController extends Controller
     
     public function data()
     {
-      $activePurchase = Purchase::where('status', 'active')->first();
+      $activePurchase = Purchase::where('status', 'active')
+      ->where('id', session('purchase_id'))
+      ->first();
       
       $products = PurchaseDetail::with('product')->where('purchase_id', $activePurchase->id)->get();
       

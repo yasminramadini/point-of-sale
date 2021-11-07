@@ -34,7 +34,7 @@
                 @csrf
                 <input type="hidden" name="product_id">
                 <div class="input-group">
-                  <input type="text" name="code" class="form-control">
+                  <input type="text" name="code" class="form-control" readonly>
                   <button class="btn btn-info btn-flat" onclick="addForm()" type="button"><i class="fas fa-arrow-right"></i></button>
                 </div>
               </form>
