@@ -14,7 +14,9 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        return view('admin.expenses.index');
+        return view('admin.expenses.index', [
+            'setting' => $this->setting()
+          ]);
     }
 
     /**

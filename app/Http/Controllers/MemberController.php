@@ -16,7 +16,8 @@ class MemberController extends Controller
     public function index()
     {
         return view('admin.member.index', [
-          'title' => 'Members'
+          'title' => 'Members',
+          'setting' => $this->setting()
           ]);
     }
     

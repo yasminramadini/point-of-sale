@@ -14,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.category.index');
+        return view('admin.category.index', [
+            'setting' => $this->setting()
+          ]);
     }
 
     /**

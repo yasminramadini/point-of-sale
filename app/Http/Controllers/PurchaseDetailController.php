@@ -30,7 +30,8 @@ class PurchaseDetailController extends Controller
         
         return view('admin.purchase_detail.index', [
           'products' => $products,
-          'supplier' => $supplier
+          'supplier' => $supplier,
+          'setting' => $this->setting()
           ]);
     }
 

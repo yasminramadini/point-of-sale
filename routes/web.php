@@ -10,6 +10,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PurchaseDetailController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,4 +77,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/save_purchase', [PurchaseController::class, 'save_purchase']);
     
     Route::get('/item_purchase/{id}', [PurchaseController::class, 'item_purchase']);
+    
+    Route::get('/setting', [SettingController::class, 'index']);
+    
+    Route::post('/setting', [SettingController::class, 'store']);
 });

@@ -20,7 +20,8 @@ class PurchaseController extends Controller
         $suppliers = Supplier::orderBy('name')->get();
         
         return view('admin.purchase.index', [
-          'suppliers' => $suppliers
+          'suppliers' => $suppliers,
+          'setting' => $this->setting()
           ]);
     }
 

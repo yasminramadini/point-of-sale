@@ -10,7 +10,8 @@ class DashboardController extends Controller
   public function index()
   {
     return view('admin.dashboard.index', [
-      'title' => 'Dashboard'
+      'title' => 'Dashboard',
+      'setting' => $this->setting()
       ]);
   }
 }

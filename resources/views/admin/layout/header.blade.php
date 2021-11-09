@@ -16,9 +16,12 @@
     </li>
     
     <li class="nav-item">
-      <a href="{{ route('login') }}" class="nav-link" role="button" onclick="return confirm('Yakin mau logout?')">
-        <i class="fas fa-sign-out-alt"></i>
-      </a>
+      <form action="{{ route('logout') }}" method="post"> 
+        @csrf
+        <button class="btn btn-primary">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </form>
     </li>
     
   </ul>

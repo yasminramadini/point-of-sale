@@ -18,7 +18,8 @@ class ProductController extends Controller
     {
         return view('admin.product.index', [
           'title' => 'Products',
-          'categories' => Category::latest()->get()
+          'categories' => Category::latest()->get(),
+          'setting' => $this->setting()
           ]);
     }
 

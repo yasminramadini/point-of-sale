@@ -14,7 +14,9 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        return view('admin.supplier.index');
+        return view('admin.supplier.index', [
+          'setting' => $this->setting()
+        ]);
     }
 
     /**

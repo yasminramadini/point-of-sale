@@ -12,14 +12,16 @@ class AuthController extends Controller
     public function login()
     {
       return view('auth.login', [
-        'title' => 'Login'
+        'title' => 'Login',
+        'setting' => $this->setting()
         ]);
     }
     
     public function register()
     {
       return view('auth.register', [
-        'title' => 'Register'
+        'title' => 'Register',
+        'setting' => $this->setting()
         ]);
     }
     
@@ -63,6 +65,6 @@ class AuthController extends Controller
       Auth::logout();
       $request->session()->invalidate();
       $request->session()->regenerateToken();
-      return redirect()->route('login');
+      return redirect('/');
     }
 }

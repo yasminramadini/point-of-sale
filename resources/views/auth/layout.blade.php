@@ -24,7 +24,7 @@
         <div class="row">
           <!-- left column -->
           <div class="col-md-12 mt-4">
-            <img src="logo.png" alt="logo" class="d-block mx-auto mb-4" width="100px">
+            <img src="/image/{{ $setting->logo }}" alt="logo" class="d-block mx-auto mb-4" width="100px">
             <!-- jquery validation -->
             <div class="card card-primary">
               <div class="card-header d-flex justify-content-center">
