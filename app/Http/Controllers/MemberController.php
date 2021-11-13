@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Member;
+use App\Models\Setting;
 use PDF;
 
 class MemberController extends Controller
@@ -176,7 +177,7 @@ class MemberController extends Controller
         $members[] = Member::find($id);
       }
       
-      $pdf = PDF::loadView('admin.member.card', ['members' => $members, 'no' => 1]);
+      $pdf = PDF::loadView('admin.member.card', ['members' => $members, 'no' => 1, 'setting' => Setting::first() ]);
       $pdf->setPaper('A4', 'portrait');
       return $pdf->stream('member_card.pdf');
     }

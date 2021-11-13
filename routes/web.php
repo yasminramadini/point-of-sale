@@ -11,6 +11,8 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PurchaseDetailController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SaleDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,4 +83,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/setting', [SettingController::class, 'index']);
     
     Route::post('/setting', [SettingController::class, 'store']);
+    
+    Route::resource('/sales', SaleController::class);
+    
+    Route::get('/data_sales', [SaleController::class, 'data']);
+    
+    Route::resource('/transaction', SaleDetailController::class);
+    
+    Route::get('/data_transaction', [SaleDetailController::class, 'data']);
+    
+    Route::get('/count_subtotal_transaction', [SaleDetailController::class, 'count_subtotal']);
+    
+    Route::post('/save_selling', [SaleController::class, 'save_selling']);
+    
+    Route::get('/print_nota', [SaleController::class, 'print_nota']);
 });

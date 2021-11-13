@@ -31,6 +31,7 @@
 
       <div class="card mt-3">
         <div class="card-body table-responsive px-2">
+
           <form class="form-member" action="" method="post">
             @csrf
             <table id="dataTable" class="table table-bordered table-striped">

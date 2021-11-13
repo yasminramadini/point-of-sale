@@ -162,13 +162,15 @@ class PurchaseController extends Controller
      */
     public function destroy($id)
     {
-        //kurangi stok produk 
+        //kembalikan stok produk 
         $getPurchaseDetail = Purchase::find($id)->purchase_detail;
         
         foreach ($getPurchaseDetail as $row) {
           $updateStock = Product::find($row->product_id);
-          $updateStock->stock = $updateStock->stock - $row->qty;
+          $updateStock->stock = $updateStock->stock + $row->qty;
           $updateStock->update();
+          
+          PurchaseDetail::destroy($row->id);
         }
         
         //hapus pembelian

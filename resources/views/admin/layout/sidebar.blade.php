@@ -88,7 +88,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/sales" class="nav-link @if(request()->is('sales')) active @endif">
               <i class="nav-icon fas fa-upload"></i>
               <p>
                 Daftar Penjualan
@@ -96,7 +96,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/UI/sliders.html" class="nav-link">
+            <a href="/transaction" class="nav-link @if(request()->is('transaction')) active @endif">
               <i class="nav-icon fas fa-shopping-cart"></i>
               <p>
                 Transaksi Penjualan

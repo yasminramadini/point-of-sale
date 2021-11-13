@@ -33,8 +33,8 @@ class SettingController extends Controller
       if($request->logo !== null) {
         $validatedData['logo'] = time() . '_' . $request->logo->getClientOriginalName();
         
-        $request->logo->move('image', $validatedData['logo']);
-        unlink('./image/' . $request->logoLama);
+        $request->logo->move('.', $validatedData['logo']);
+        unlink('./' . $request->logoLama);
       }
       else {
         $validatedData['logo'] = $request->logoLama;
@@ -43,8 +43,8 @@ class SettingController extends Controller
       if($request->member_card !== null) {
         $validatedData['member_card'] = time() . '_' . $request->member_card->getClientOriginalName();
         
-        $request->member_card->move('image', $validatedData['member_card']);
-        unlink('./image/' . $request->kartuLama);
+        $request->member_card->move('.', $validatedData['member_card']);
+        unlink('.' . $request->kartuLama);
       }
       else {
         $validatedData['member_card'] = $request->kartuLama;
