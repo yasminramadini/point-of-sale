@@ -126,7 +126,7 @@
         ]
     })
     
-    //edit category
+    //edit expenses
     function editForm(url) {
       $('#modal-form').modal('show')
       $('#modal-form .modal-title').text('Edit Pengeluaran')

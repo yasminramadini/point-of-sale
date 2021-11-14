@@ -13,6 +13,7 @@ use App\Http\Controllers\PurchaseDetailController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleDetailController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,4 +98,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/save_selling', [SaleController::class, 'save_selling']);
     
     Route::get('/print_nota', [SaleController::class, 'print_nota']);
+    
+    Route::get('/report', [ReportController::class, 'index']);
+    
+    Route::get('/data_report/{start}/{end}', [ReportController::class, 'getReport']);
+    
+    Route::get('/report/print/{startdate}/{enddate}', [ReportController::class, 'print']);
 });

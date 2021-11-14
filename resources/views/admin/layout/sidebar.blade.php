@@ -105,10 +105,10 @@
           </li>
           <li class="nav-header">LAPORAN</li>
           <li class="nav-item">
-            <a href="pages/UI/modals.html" class="nav-link">
+            <a href="/report" class="nav-link @if(request()->is('report')) active @endif">
               <i class="nav-icon far fa-file"></i>
               <p>
-                Laporan
+                Data Laporan
               </p>
             </a>
           </li>
