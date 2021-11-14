@@ -14,6 +14,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleDetailController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,4 +105,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/data_report/{start}/{end}', [ReportController::class, 'getReport']);
     
     Route::get('/report/print/{startdate}/{enddate}', [ReportController::class, 'print']);
+    
+    Route::resource('/user', UserController::class);
+    
+    Route::get('/data_user', [UserController::class, 'data']);
 });

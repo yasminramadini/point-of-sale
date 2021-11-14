@@ -122,7 +122,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/UI/timeline.html" class="nav-link">
+            <a href="/user" class="nav-link @if(request()->is('user')) active @endif">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 User
