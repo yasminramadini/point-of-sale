@@ -19,7 +19,7 @@ class SettingSeeder extends Seeder
           'company_address' => 'Jl. Raya Merdeka, no 25, Jakarta Pusat',
           'logo' => 'logo.png',
           'company_phone' => '0219876436',
-          'member_card' => 'card.jpg',
+          'member_card' => 'member_card.jpg',
           'note_type' => 1
         ]);
     }
