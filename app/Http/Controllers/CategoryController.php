@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Setting;
 
 class CategoryController extends Controller
 {
@@ -15,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('admin.category.index', [
-            'setting' => $this->setting()
+            'setting' => Setting::first()
           ]);
     }
 

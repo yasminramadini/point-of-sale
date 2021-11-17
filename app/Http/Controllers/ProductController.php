@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 use PDF;
+use App\Models\Setting;
 
 class ProductController extends Controller
 {
@@ -19,7 +20,7 @@ class ProductController extends Controller
         return view('admin.product.index', [
           'title' => 'Products',
           'categories' => Category::latest()->get(),
-          'setting' => $this->setting()
+          'setting' => Setting::first()
           ]);
     }
 

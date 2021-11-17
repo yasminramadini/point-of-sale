@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use App\Models\Setting;
+
 
 class SupplierController extends Controller
 {
@@ -15,7 +17,7 @@ class SupplierController extends Controller
     public function index()
     {
         return view('admin.supplier.index', [
-          'setting' => $this->setting()
+          'setting' => Setting::first()
         ]);
     }
 

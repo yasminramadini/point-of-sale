@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Expense;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -15,7 +16,7 @@ class ExpenseController extends Controller
     public function index()
     {
         return view('admin.expenses.index', [
-            'setting' => $this->setting()
+            'setting' => Setting::first()
           ]);
     }
 

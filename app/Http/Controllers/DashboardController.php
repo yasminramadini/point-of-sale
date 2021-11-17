@@ -11,6 +11,7 @@ use App\Models\Supplier;
 use App\Models\Sale;
 use App\Models\Expense;
 use App\Models\Purchase;
+use App\Models\Setting;
 
 class DashboardController extends Controller
 {
@@ -50,11 +51,13 @@ class DashboardController extends Controller
       'product' => Product::count(),
       'member' => Member::count(),
       'supplier' => Supplier::count(),
-      'earning' => $earnPerDay
+      'earning' => $earnPerDay,
+      'setting' => Setting::first()
       ]);
     } else {
       return view('user.dashboard.index', [
-        'title' => 'Dashboard'
+        'title' => 'Dashboard',
+        'setting' => Setting::first()
         ]);
     }
   }

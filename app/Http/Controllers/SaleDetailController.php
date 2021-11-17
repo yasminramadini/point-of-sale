@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Member;
 use App\Models\Sale;
 use Illuminate\Http\Request;
+use App\Models\Setting;
 
 class SaleDetailController extends Controller
 {
@@ -21,7 +22,7 @@ class SaleDetailController extends Controller
       
       return view('admin.sale_detail.index', [
         'title' => 'Transaction',
-        'setting' => $this->setting(),
+        'setting' => Setting::first(),
         'products' => $products,
         'members' => $members
         ]);

@@ -7,6 +7,7 @@ use App\Models\Supplier;
 use App\Models\PurchaseDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Setting;
 
 class PurchaseController extends Controller
 {
@@ -21,7 +22,7 @@ class PurchaseController extends Controller
         
         return view('admin.purchase.index', [
           'suppliers' => $suppliers,
-          'setting' => $this->setting()
+          'setting' => Setting::first()
           ]);
     }
 

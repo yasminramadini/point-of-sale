@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use App\Models\Setting;
 
 class UserController extends Controller
 {
@@ -13,7 +14,8 @@ class UserController extends Controller
     {
       return view('admin.user.index', [
         'title' => 'Daftar User',
-        'roles' => User::distinct()->pluck('role')
+        'roles' => User::distinct()->pluck('role'),
+        'setting' => Setting::first()
         ]);
     }
     

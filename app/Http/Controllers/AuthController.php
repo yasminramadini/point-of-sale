@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Setting;
 
 class AuthController extends Controller
 {
@@ -13,7 +14,7 @@ class AuthController extends Controller
     {
       return view('auth.login', [
         'title' => 'Login',
-        'setting' => $this->setting()
+        'setting' => Setting::first()
         ]);
     }
     

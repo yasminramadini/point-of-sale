@@ -15,6 +15,7 @@ class SaleController extends Controller
     {
       return view('admin.sale.index', [
         'title' => 'Sales',
+        'setting' => Setting::first()
         ]);
     }
     

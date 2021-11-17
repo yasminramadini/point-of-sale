@@ -11,7 +11,7 @@ class SettingController extends Controller
     {
       return view('admin.setting.index', [
         'title' => 'Setting',
-        'setting' => $this->setting()
+        'setting' => Setting::first()
         ]);
     }
     

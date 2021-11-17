@@ -18,7 +18,7 @@ class MemberController extends Controller
     {
         return view('admin.member.index', [
           'title' => 'Members',
-          'setting' => $this->setting()
+          'setting' => Setting::first()
           ]);
     }
     
