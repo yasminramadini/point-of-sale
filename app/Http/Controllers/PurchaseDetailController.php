@@ -84,8 +84,11 @@ class PurchaseDetailController extends Controller
       $products = $activePurchase->purchase_detail;
       
       $row = [];
+      $total_item = [];
+      
       foreach ($products as $subtotal) {
         $row[] = $subtotal->subtotal;
+        $total_item[] = $subtotal->qty;
       }
       
       $subtotal = array_sum($row);
@@ -101,7 +104,7 @@ class PurchaseDetailController extends Controller
         'price' => 'Rp ' . number_format($paid, 0, ',', '.'),
         'num_price' => $subtotal,
         'discount' => $activePurchase->discount,
-        'total_item' => $products->count(),
+        'total_item' => array_sum($total_item),
         'paid' => $paid
         ]);
     }

@@ -33,7 +33,7 @@
     
     <div style="margin: 0 auto">
     <div class="text-center" style="margin-top: 10px; font-size: 6pt">
-      <h2 style="margin-bottom: 7px; font-size: 10pt"><img src="{{ public_path($setting->logo) }}" style="display: inline-block; margin-right: 5px" width="20px">{{ $setting->company_name }}</h2>
+      <h2 style="margin-bottom: 7px; font-size: 10pt"><img src="<?= public_path('image/' . $setting->logo) ?>" style="display: inline-block; margin-right: 5px" width="20px">{{ $setting->company_name }}</h2>
       <p>{{ $setting->company_address }}</p>
       <p>Telp: {{ $setting->company_phone }}</p>
       <p style="margin: 10px 0">No: {{ strtotime($sale->created_at) }} - {{ $sale->id }}</p>
@@ -50,16 +50,26 @@
       </tr>
       <tr>
         <td>Rp {{ number_format($row->product->selling_price, 0, ',', '.') }} x {{ $row->qty }}</td>
-        <td style="text-align: right;">Rp {{ number_format($row->subtotal, 0, ',', '.') }} @if($row->discount > 0) ({{ $row->discount }}%) @endif</td>
+        <td style="text-align: right;">
+          Rp {{ number_format($row->subtotal, 0, ',', '.') }}
+          @if($row->discount > 0) ({{ $row->discount }}%) @endif</td>
       </tr>
       @endforeach
-      <tr>
+      <tr class="mt-3">
         <td><b>Diskon member:</b></td>
-        <td style="text-align:right;"><b>@if($sale->member_id !== 0) {{ $setting->discount }} @else {{ 0 }} @endif</b></td>
+        <td style="text-align:right;"><b>@if($sale->member_id !== 0) {{ $setting->discount }}% @else {{ 0 }}% @endif</b></td>
       </tr>
       <tr>
         <td><b>Subtotal:</b></td>
         <td style="text-align: right;"><b>Rp {{ number_format($sale->paid, 0, ',', '.') }}</b></td>
+      </tr>
+      <tr>
+        <td><b>Bayar:</b></td>
+        <td style="text-align: right;"><b>Rp {{ number_format($sale->accepted, 0, ',', '.') }}</b></td>
+      </tr>
+      <tr>
+        <td><b>Kembalian:</b></td>
+        <td style="text-align: right;"><b>Rp {{ number_format($sale->accepted - $sale->paid, 0, ',', '.') }}</b></td>
       </tr>
     </table>
     

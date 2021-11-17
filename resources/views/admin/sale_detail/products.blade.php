@@ -28,9 +28,12 @@
               <td>{{ $product->name }}</td>
               <td>{{ $product->selling_price }}</td>
               <td>
-                <button onclick="addProduct('{{ $product->code }}', '{{ $product->id }}')" class="btn btn-info">
+                <button onclick="addProduct('{{ $product->code }}', '{{ $product->id }}')" class="btn btn-info @if($product->stock < 1) d-none @endif">
                   <i class="fas fa-check-circle"></i> Pilih
                 </button>
+                @if($product->stock < 1)
+                <p class="text-danger"><i>Stok habis</i></p>
+                @endif
               </td>
             </tr>
             @endforeach

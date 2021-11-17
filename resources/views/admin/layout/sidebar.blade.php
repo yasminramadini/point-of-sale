@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="index3.html" class="brand-link">
-    <img src="/image/{{ $setting->logo }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <img src="/image/{{ $setting->logo }}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     <span class="brand-text font-weight-light">{{ $setting->company_name }}</span>
   </a>
 
@@ -10,10 +10,10 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        <img src="image/{{ auth()->user()->avatar }}" class="img-circle elevation-2 img-avatar" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">{{ Auth::user()->username }}</a>
+        <span class="d-block text-username text-white">{{ Auth::user()->username }}</span>
       </div>
     </div>
 
@@ -30,6 +30,7 @@
             </p>
           </a>
         </li>
+        @can('admin')
         <li class="nav-header">MASTER</li>
         <li class="nav-item">
           <a href="/categories" class="nav-link @if(request()->is('categories')) active @endif">
@@ -87,6 +88,7 @@
               </p>
             </a>
           </li>
+          @endcan
           <li class="nav-item">
             <a href="/sales" class="nav-link @if(request()->is('sales')) active @endif">
               <i class="nav-icon fas fa-upload"></i>
@@ -103,6 +105,7 @@
               </p>
             </a>
           </li>
+          @can('admin')
           <li class="nav-header">LAPORAN</li>
           <li class="nav-item">
             <a href="/report" class="nav-link @if(request()->is('report')) active @endif">
@@ -129,8 +132,9 @@
               </p>
             </a>
           </li>
+          @endcan
           <li class="nav-item">
-            <a href="pages/UI/ribbons.html" class="nav-link">
+            <a href="/profil" class="nav-link @if(request()->is('profil')) active @endif">
               <i class="nav-icon far fa-user"></i>
               <p>
                 Profil

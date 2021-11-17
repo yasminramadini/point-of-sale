@@ -85,16 +85,18 @@ class SaleDetailController extends Controller
       
       $subtotal = [];
       $total_price = [];
+      $total_item = [];
       
       foreach ($product as $row) {
         $subtotal[] = $row->subtotal;
         $total_price[] = $row->price * $row->qty;
+        $total_item[] = $row->qty;
       }
       
       return response()->json([
         'paid' => 'Rp ' . number_format(array_sum($subtotal), 0, ',', '.'),
         'num_paid' => array_sum($subtotal),
-        'total_item' => count($subtotal),
+        'total_item' => array_sum($total_item),
         'total_price' => array_sum($total_price)
         ]);
     }

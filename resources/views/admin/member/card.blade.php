@@ -48,8 +48,8 @@
         @foreach($members as $member)
           <td>
             <div class="box">
-              <img id="card" src="{{ public_path($setting->member_card) }}" width="100%" alt="{{ $setting->member_card }}">
-              <img id="logo" src="{{ public_path($setting->logo) }}" width="40px">
+              <img id="card" src="<?= public_path('image/' . $setting->member_card) ?>" width="100%" alt="{{ $setting->member_card }}">
+              <img id="logo" src="<?= public_path('image/' . $setting->logo) ?>" width="40px">
               <p id="phone">{{ $member->phone }}</p>
               <p id="name">{{ $member->name }}</p>
               <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG($member->code, 'QRCODE') }}" alt="qrcode" height="45" widht="45" id="qrcode">

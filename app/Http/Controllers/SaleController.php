@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sale;
-use App\Models\Setting;
 use App\Models\SaleDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Setting;
 use PDF;
 
 class SaleController extends Controller
@@ -15,7 +15,6 @@ class SaleController extends Controller
     {
       return view('admin.sale.index', [
         'title' => 'Sales',
-        'setting' => $this->setting()
         ]);
     }
     
@@ -77,14 +76,12 @@ class SaleController extends Controller
       
       //update diskon member
       $setting = Setting::first();
-      $sale->discount = $setting->discount;
+      
+      if($sale->discount === 0) {
+        $sale->discount = $setting->discount;
+      }
       
       $sale->update();
-      
-      session([
-        'member_id' => $sale->member_id,
-        'member_discount'
-      ]);
       
       $transaction = SaleDetail::where('sale_id', session('sale_id'))->get();
       

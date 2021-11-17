@@ -40,6 +40,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
 
+    Route::middleware(['isAdmin'])->group(function() {
     Route::resource('/categories', CategoryController::class);
     
     Route::get('/data_categories', [CategoryController::class, 'data']);
@@ -86,6 +87,18 @@ Route::middleware(['auth'])->group(function () {
     
     Route::post('/setting', [SettingController::class, 'store']);
     
+    Route::get('/report', [ReportController::class, 'index']);
+    
+    Route::get('/data_report/{start}/{end}', [ReportController::class, 'getReport']);
+    
+    Route::get('/report/print/{startdate}/{enddate}', [ReportController::class, 'print']);
+    
+    Route::resource('/user', UserController::class);
+    
+    Route::get('/data_user', [UserController::class, 'data']);
+    
+    });
+    
     Route::resource('/sales', SaleController::class);
     
     Route::get('/data_sales', [SaleController::class, 'data']);
@@ -100,13 +113,9 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/print_nota', [SaleController::class, 'print_nota']);
     
-    Route::get('/report', [ReportController::class, 'index']);
+    Route::get('/profil', [UserController::class, 'profil']);
     
-    Route::get('/data_report/{start}/{end}', [ReportController::class, 'getReport']);
+    Route::post('/profil', [UserController::class, 'updateProfil']);
     
-    Route::get('/report/print/{startdate}/{enddate}', [ReportController::class, 'print']);
-    
-    Route::resource('/user', UserController::class);
-    
-    Route::get('/data_user', [UserController::class, 'data']);
+    Route::post('/profil/change_password', [UserController::class, 'change_password']);
 });

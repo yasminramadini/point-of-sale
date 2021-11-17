@@ -29,47 +29,34 @@
             @csrf
             <div class="mb-3 company_name">
               <label>Nama Perusahaan</label>
-              <input type="text" class="form-control @error('company_name') is-invalid @enderror" name="company_name" id="company_name" value="{{ $setting->company_name }}" required>
-              @error('company_name')
-              <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
+              <input type="text" class="form-control" name="company_name" id="company_name" value="{{ $setting->company_name }}" required>
+              <div class="invalid-feedback"></div>
             </div>
             <div class="mb-3 company_phone">
               <label>No Perusahaan</label>
-              <input type="number" class="form-control @error('company_phone') is-invalid @enderror" name="company_phone" id="company_phone" value="{{ $setting->company_phone }}" required>
-              @error('company_phone')
-              <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
+              <input type="number" class="form-control" name="company_phone" id="company_phone" value="{{ $setting->company_phone }}" required>
+              <div class="invalid-feedback"></div>
             </div>
             <div class="mb-3 discount">
               <label>Diskon Member</label>
-              <input type="number" class="form-control @error('discount') is-invalid @enderror" name="discount" value="{{ $setting->discount }}" id="discount">
-              @error('discount')
-              <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
+              <input type="number" class="form-control" name="discount" value="{{ $setting->discount }}" id="discount">
             </div>
             <div class="mb-3 company_address">
               <label>Alamat Perusahaan</label>
-              <textarea name="company_address" class="form-control @error('company_address') is-invalid @enderror" required rows="5" id="company_address">{{ $setting->company_address }}</textarea>
-              @error('company_address')
-              <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
+              <textarea name="company_address" class="form-control" rows="5" id="company_address">{{ $setting->company_address }}</textarea>
+              <div class="invalid-feedback"></div>
             </div>
             <div class="mb-3 logo">
               <label>Logo Perusahaan</label>
-              <input type="file" class="form-control-input @error('logo') is-invalid @enderror" name="logo" id="logo">
+              <input type="file" class="form-control-input" name="logo" id="logo">
               <img src="/image/{{ $setting->logo }}" class="d-block img-thumbnail my-2" width="100px" id="previewLogo">
-              @error('logo')
-              <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
+              <div class="invalid-feedback"></div>
             </div>
             <div class="mb-3 member_card">
               <label>Kartu Member</label>
-              <input type="file" class="form-control-input @error('member_card') is-invalid @enderror" name="member_card" id="member_card">
+              <input type="file" class="form-control-input" name="member_card" id="member_card">
               <img src="/image/{{ $setting->member_card }}" class="d-block img-thumbnail my-2" width="130px" id="previewCard">
-              @error('member_card')
-              <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
+              <div class="invalid-feedback"></div>
             </div>
             <button class="btn btn-primary">Save</button>
           </form>
@@ -124,9 +111,40 @@
         $('#previewLogo').attr('src', '/image/' + data.logo)
         $('#previewCard').attr('src', '/image/' + data.member_card)
         $('#discount').val(data.discount)
+        $('.brand-image').attr('src', '/image/' + data.logo)
+        $('.brand-text').html(data.company_name)
+        
+        $('#form-setting input').removeClass('is-invalid')
+        $('.invalid-feedback').text('')
       },
       error: function(xhr) {
-        makeAlert('error', 'Gagal!', 'Gagal mengupdate pengaturan')
+        var error = JSON.parse(xhr.responseText)
+        
+        if(error.errors.company_name) {
+          $('#form-setting [name=company_name]').addClass('is-invalid')
+          $('#form-setting .company_name .invalid-feedback').text(error.errors.company_name)
+        }
+        
+        if(error.errors.company_phone) {
+          $('#form-setting [name=company_phone]').addClass('is-invalid')
+          $('#form-setting .company_phone .invalid-feedback').text(error.errors.company_phone)
+        }
+        
+        if(error.errors.company_address) {
+          $('#form-setting [name=company_address]').addClass('is-invalid')
+          $('#form-setting .company_address .invalid-feedback').text(error.errors.company_address)
+        }
+        
+        if(error.errors.logo) {
+          $('#form-setting [name=logo]').addClass('is-invalid')
+          $('#form-setting .logo .invalid-feedback').text(error.errors.logo)
+        }
+        
+        if(error.errors.member_card) {
+          $('#form-setting [name=member_card]').addClass('is-invalid')
+          $('#form-setting .member_card .invalid-feedback').text(error.errors.member_card)
+        }
+        
       }
     })
   })
