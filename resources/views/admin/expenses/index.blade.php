@@ -24,7 +24,7 @@
     <div class="container-fluid">
       
       <div class="btn-group">
-        <button class="btn btn-success" onclick="addForm('/expenses')"> Tambah</button>
+        <button class="btn btn-success" onclick="addForm('/expenses')"><i class="fas fa-plus-circle"></i> Tambah Pengeluaran</button>
       </div>
 
       <div class="card mt-3">

@@ -16,7 +16,8 @@ class CategoryController extends Controller
     public function index()
     {
         return view('admin.category.index', [
-            'setting' => Setting::first()
+            'setting' => Setting::first(),
+            'title' => 'Categories'
           ]);
     }
 

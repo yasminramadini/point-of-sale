@@ -17,10 +17,10 @@ class Settings extends Migration
             $table->id();
             $table->string('company_name');
             $table->text('company_address')->nullable();
-            $table->string('logo')->unique()->nullable();
+            $table->string('logo')->nullable();
             $table->string('company_phone');
             $table->string('member_card')->nullable();
-            $table->string('note_type')->nullable();
+            $table->integer('note_type')->nullable();
             $table->timestamps();
         });
     }

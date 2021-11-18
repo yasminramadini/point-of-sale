@@ -83,7 +83,7 @@
       columns: [
           {"data" : "DT_RowIndex", "searchable" : false, "sortable" : false},
           {"data" : "tanggal"},
-          {"data" : "member.name", "defaultContent": "<i class='text-center text-muted'>none</i>"},
+          {"data" : "member.code", "defaultContent": "<i class='text-center text-muted'>none</i>"},
           {"data" : "total_item", "searchable" : false, "sortable" : false},
           {"data" : "total_price", "searchable" : false, "sortable" : false},
           {"data" : "discount", "searchable" : false, "sortable" : false},

@@ -47,7 +47,7 @@
             <div class="mb-3 avatar">
               <label>Avatar</label>
               <input type="file" class="form-control-input" name="avatar" id="avatar">
-              <img src="/image/{{ $profil->avatar }}" class="d-block img-thumbnail my-2" width="200px" id="previewAvatar">
+              <img src="@if($profil->avatar !== null) /image/{{ $profil->avatar }} @else /image/avatar.png @endif" class="d-block img-thumbnail my-2" width="200px" id="previewAvatar">
               <div class="invalid-feedback"></div>
             </div>
             <button class="btn btn-primary">Save</button>
@@ -99,8 +99,13 @@
         $('#name').val(data.name)
         $('#username').val(data.username)
         $('#email').val(data.email)
-        $('#previewAvatar').attr('src', '/image/' + data.avatar)
-        $('.img-avatar').attr('src', '/image/' + data.avatar)
+        if(data.avatar !== null) {
+          $('.img-avatar').attr('src', '/image/' + data.avatar)
+          $('#previewAvatar').attr('src', '/image/' + data.avatar)
+        } else {
+          $('.img-avatar').attr('src', '/image/avatar.png')
+          $('#previewAvatar').attr('src', '/image/avatar.png')
+        }
         $('.text-username').text(data.username)
         
         $('.invalid-feedback').text('')

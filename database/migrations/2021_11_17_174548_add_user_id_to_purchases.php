@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTotalItemToPurchase extends Migration
+class AddUserIdToPurchases extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddTotalItemToPurchase extends Migration
     public function up()
     {
         Schema::table('purchases', function (Blueprint $table) {
-            $table->integer('total_item')->after('total_price');
+            $table->foreignId('user_id')->after('id');
         });
     }
 
@@ -26,7 +26,7 @@ class AddTotalItemToPurchase extends Migration
     public function down()
     {
         Schema::table('purchases', function (Blueprint $table) {
-            $table->dropColumn('total_item');
+            $table->dropColumn('user_id');
         });
     }
 }

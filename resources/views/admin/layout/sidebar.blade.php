@@ -10,7 +10,7 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="image/{{ auth()->user()->avatar }}" class="img-circle elevation-2 img-avatar" alt="User Image">
+        <img src="@if(auth()->user()->avatar !== null) image/{{ auth()->user()->avatar }} @else image/avatar.png @endif" class="img-circle elevation-2 img-avatar" alt="User Image">
       </div>
       <div class="info">
         <span class="d-block text-username text-white">{{ Auth::user()->username }}</span>

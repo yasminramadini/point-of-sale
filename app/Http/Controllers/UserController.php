@@ -66,7 +66,8 @@ class UserController extends Controller
     {
       return view('admin.user.profil', [
         'title' => 'Profil',
-        'profil' => auth()->user()
+        'profil' => auth()->user(),
+        'setting' => Setting::first()
         ]);
     }
     

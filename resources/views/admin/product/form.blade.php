@@ -13,12 +13,12 @@
           @method('post')
           <div class="form-group code">
             <label for="code" class="col-form-label">Kode:</label>
-            <input type="text" class="form-control" id="code" name="code">
+            <input type="text" class="form-control" id="code" name="code" autocomplete="off">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group name">
             <label for="name" class="col-form-label">Nama:</label>
-            <input type="text" class="form-control" id="name" name="name">
+            <input type="text" class="form-control" id="name" name="name" autocomplete="off">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group category_id">
@@ -32,22 +32,22 @@
           </div>
           <div class="form-group stock">
             <label for="stock" class="col-form-label">Stok:</label>
-            <input type="number" class="form-control" id="stock" name="stock">
+            <input type="number" class="form-control" id="stock" name="stock" value="0">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group purchase_price">
             <label for="purchase_price" class="col-form-label">Harga Beli:</label>
-            <input type="number" class="form-control" id="purchase_price" name="purchase_price">
+            <input type="number" class="form-control" id="purchase_price" name="purchase_price" value="0">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group selling_price">
             <label for="selling_price" class="col-form-label">Harga Jual:</label>
-            <input type="number" class="form-control" id="selling_price" name="selling_price">
+            <input type="number" class="form-control" id="selling_price" name="selling_price" value="0">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group discount">
             <label for="discount" class="col-form-label">Diskon:</label>
-            <input type="number" class="form-control" id="discount" name="discount">
+            <input type="number" class="form-control" id="discount" name="discount" value="0">
             <div class="invalid-feedback"></div>
           </div>
         </div>

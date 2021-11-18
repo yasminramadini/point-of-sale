@@ -8,6 +8,7 @@ use App\Models\PurchaseDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Gate;
 
 class PurchaseController extends Controller
 {
@@ -49,6 +50,9 @@ class PurchaseController extends Controller
             ->addColumn('paid', function($purchases) {
               return 'Rp ' . number_format($purchases->paid, 0, ',', '.');
             })
+            ->addColumn('created_at', function($purchases) {
+              return $purchases->created_at->locale('id_ID')->isoFormat('Do MMMM YYYY');
+            })
             ->addColumn('aksi', function($purchases) {
               return '
                 <div class="btn-group btn-group-sm">
@@ -57,7 +61,7 @@ class PurchaseController extends Controller
                 </div>
               ';
             })
-            ->rawColumns(['aksi', 'paid', 'total_price'])
+            ->rawColumns(['aksi', 'paid', 'total_price', 'created_at'])
             ->make(true);
     }
 
@@ -163,12 +167,16 @@ class PurchaseController extends Controller
      */
     public function destroy($id)
     {
+      if(auth()->user()->id !== Purchase::find($id)->user_id) {
+        return response()->json('Anda tidak memiliki izin menghapus ini', 422);
+      }
+      
         //kembalikan stok produk 
         $getPurchaseDetail = Purchase::find($id)->purchase_detail;
         
         foreach ($getPurchaseDetail as $row) {
           $updateStock = Product::find($row->product_id);
-          $updateStock->stock = $updateStock->stock + $row->qty;
+          $updateStock->stock = $updateStock->stock - $row->qty;
           $updateStock->update();
           
           PurchaseDetail::destroy($row->id);

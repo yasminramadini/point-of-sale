@@ -20,7 +20,7 @@ class SettingSeeder extends Seeder
           'logo' => 'logo.png',
           'company_phone' => '0219876436',
           'member_card' => 'member_card.jpg',
-          'note_type' => 1
+          'discount' => 20
         ]);
     }
 }

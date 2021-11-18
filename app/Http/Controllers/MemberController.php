@@ -71,8 +71,8 @@ class MemberController extends Controller
     {
         $validatedData = $request->validate([
           'code' => 'required|unique:members',
-          'name' => 'required|string|unique:products|min:3',
-          'phone' => 'required|min:1|integer'
+          'name' => 'required',
+          'phone' => 'required'
           ]);
        $validatedData['address'] = $request->address;
 
@@ -106,7 +106,7 @@ class MemberController extends Controller
         
         $rules = [
           'name' => 'required',
-          'phone' => 'required|integer',
+          'phone' => 'required',
           ];
         
         if($request->code === $member->code) {

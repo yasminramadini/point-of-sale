@@ -57,6 +57,9 @@ class ProductController extends Controller
             ->addColumn('selling_price', function($products) {
               return 'Rp ' . number_format($products->selling_price, 0, ',', '.');
             })
+            ->addColumn('discount', function($products) {
+              return $products->discount . '%';
+            })
             ->addColumn('aksi', function($products) {
               return '
               <div class="btn-group btn-sm">
@@ -65,7 +68,7 @@ class ProductController extends Controller
               </div>
               ';
             })
-           ->rawColumns(['aksi', 'select_all', 'code', 'purchase_price', 'selling_price'])
+           ->rawColumns(['aksi', 'select_all', 'code', 'purchase_price', 'selling_price', 'discount'])
            ->make(true);
     }
 

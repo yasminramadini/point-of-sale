@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Setting;
 use PDF;
+use Illuminate\Support\Facades\Gate;
 
 class SaleController extends Controller
 {
@@ -185,6 +186,10 @@ class SaleController extends Controller
     
     public function destroy($id)
     {
+      if(auth()->user()->id !== Sale::find($id)->user_id) {
+        return response()->json('Anda tidak memiliki izin menghapus ini', 422);
+      }
+      
       //kembalikan stok produk 
       $sale = Sale::with('sale_detail')->find($id)->sale_detail;
       

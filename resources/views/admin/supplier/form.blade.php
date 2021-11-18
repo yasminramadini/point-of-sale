@@ -13,12 +13,12 @@
           @method('post')
           <div class="form-group name">
             <label for="name" class="col-form-label">Nama:</label>
-            <input type="text" class="form-control" id="name" name="name">
+            <input type="text" class="form-control" id="name" name="name" autocomplete="off">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group stock">
             <label for="phone" class="col-form-label">Telepon:</label>
-            <input type="number" class="form-control" id="phone" name="phone">
+            <input type="number" class="form-control" id="phone" name="phone" autocomplete="off">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group address">
