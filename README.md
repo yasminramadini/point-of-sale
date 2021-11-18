@@ -22,16 +22,16 @@ aplikasi ini dibuat menggunakan framework Laravel 8 dan Bootstrap 4. aplikasi in
 - Melihat detail dan membatalkan penjualan
 
 ## cara instal 
-1. Clone repo ini 
+- Clone repo ini 
 <code>git clone https://github.com/yasminramadini/point-of-sale.git</code>
-2. Copy file .env.example dengan perintah berikut melalui terminal
+- Copy file .env.example dengan perintah berikut melalui terminal
 <code>cp .env.example .env</code>
 
 atau
 
 <code>copy .env.example .env</code>
-3. ketik perintah <code>composer install</code>
-4. ketik perintah <code>php artisan key:generate</code>
-5. buka file .env, edit konfigurasi databasenya 
-6. lakukan migrasi database dan seeder <code>php artisan migrate --seed</code>
-7. jalankan server dengan php artisan serve
+- ketik perintah <code>composer install</code>
+- ketik perintah <code>php artisan key:generate</code>
+- buka file .env, edit konfigurasi databasenya 
+- lakukan migrasi database dan seeder <code>php artisan migrate --seed</code>
+- jalankan server dengan php artisan serve
