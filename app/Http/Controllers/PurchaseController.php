@@ -78,6 +78,7 @@ class PurchaseController extends Controller
     {
         $storePurchase = Purchase::create([
           'supplier_id' => $request->supplier_id,
+          'user_id' => auth()->user()->id,
           'total_item' => 0,
           'total_price' => 0,
           'discount' => 0,
