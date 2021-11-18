@@ -19,7 +19,7 @@
   <div class="card-body">
     <div class="form-group">
       <label for="exampleInputEmail1">Username</label>
-      <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username" placeholder="Username" required value="{{ old('username') }}">
+      <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username" placeholder="Username" required value="{{ old('username') }}" autocomplete="off">
       @error('username')
       <div class="invalid-feedback">
         {{ $message }}
@@ -39,7 +39,6 @@
   <!-- /.card-body -->
   <div class="card-footer text-center">
     <button type="submit" class="btn btn-primary btn-block">Login</button>
-    <small class="d-block mt-3">Lupa password? <a href="#">klik di sini</a></small>
     <small class="d-block">Belum punya akun? <a href="{{ route('register') }}">register</a></small>
   </div>
 </form>

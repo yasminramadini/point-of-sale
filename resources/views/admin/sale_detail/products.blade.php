@@ -15,6 +15,7 @@
               <th>Kode</th>
               <th>Nama</th>
               <th>Harga Jual</th>
+              <th>Stok</th>
               <th>
                 <i class="fas fa-cog"></i>
               </th>
@@ -27,6 +28,7 @@
               <td>{{ $product->code }}</td>
               <td>{{ $product->name }}</td>
               <td>{{ $product->selling_price }}</td>
+              <td>{{ $product->stock }}</td>
               <td>
                 <button onclick="addProduct('{{ $product->code }}', '{{ $product->id }}')" class="btn btn-info @if($product->stock < 1) d-none @endif">
                   <i class="fas fa-check-circle"></i> Pilih

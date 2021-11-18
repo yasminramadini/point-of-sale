@@ -194,7 +194,7 @@
     })
     
     //edit qty
-    function editQty(id, value) {
+    function editQty(id, value, qty) {
       
       if(parseInt(value) > 10000) {
         makeAlert('warning', 'Perhatian!', 'Maksimal qty 10000')
@@ -203,6 +203,11 @@
       
       if(parseInt(value) < 1) {
         makeAlert('warning', 'Perhatian!', 'Minimal qty 1')
+        value = 1
+      }
+      
+      if(parseInt(value) > parseInt(qty)) {
+        makeAlert('warning', 'Perhatian!', 'Jumlah qty tidak boleh lebih dari stok produk')
         value = 1
       }
       

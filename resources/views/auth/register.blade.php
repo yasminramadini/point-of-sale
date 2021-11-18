@@ -7,7 +7,7 @@
   <div class="card-body">
     <div class="form-group">
       <label for="email">Alamat Email</label>
-      <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Email" required value="{{ old('email') }}">
+      <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Email" required value="{{ old('email') }}" autocomplete="off">
       @error('email')
       <div class="invalid-feedback">
         {{ $message }}
@@ -16,7 +16,7 @@
     </div>
     <div class="form-group">
       <label for="username">Username</label>
-      <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username" placeholder="Username" value="{{ old('username') }}">
+      <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username" placeholder="Username" value="{{ old('username') }}" autocomplete="off">
       @error('username')
       <div class="invalid-feedback">
         {{ $message }}
@@ -25,7 +25,7 @@
     </div>
     <div class="form-group">
       <label for="name">Nama</label>
-      <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Nama" value="{{ old('name') }}">
+      <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Nama" value="{{ old('name') }}" autocomplete="off">
       @error('name')
       <div class="invalid-feedback">
         {{ $message }}

@@ -74,7 +74,7 @@ class SaleDetailController extends Controller
               return $detailTransaction->product->discount . '%';
             })
             ->addColumn('qty', function($detailTransaction) {
-              return '<input type="number" value="'. $detailTransaction->qty .'" style="width: 50px" data-id="'. $detailTransaction->id .'" onchange="editQty('. $detailTransaction->id .', this.value)">';
+              return '<input type="number" value="'. $detailTransaction->qty .'" style="width: 50px" data-id="'. $detailTransaction->id .'" onchange="editQty('. $detailTransaction->id .', this.value, '. $detailTransaction->product->stock .')">';
             })
             ->rawColumns(['aksi', 'discount', 'price', 'subtotal', 'qty'])
             ->make(true);

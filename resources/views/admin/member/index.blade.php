@@ -24,9 +24,9 @@
     <div class="container-fluid">
       
       <div class="btn-group">
-        <button class="btn btn-success" onclick="addForm('/members')"> Tambah</button>
-        <button class="btn btn-danger" id="delete_all" onclick="delete_all('/delete_all_members')">Hapus Banyak</button>
-        <button class="btn btn-info" onclick="print_card('/print_card')">Cetak Kartu</button>
+        <button class="btn btn-success" onclick="addForm('/members')"> <i class="fas fa-plus-circle"></i> Tambah Member</button>
+        <button class="btn btn-danger" id="delete_all" onclick="delete_all('/delete_all_members')"><i class="fas fa-trash"></i> Hapus Banyak</button>
+        <button class="btn btn-info" onclick="print_card('/print_card')"><i class="fas fa-print"></i> Cetak Kartu</button>
       </div>
 
       <div class="card mt-3">

@@ -24,9 +24,9 @@
     <div class="container-fluid">
       
       <div class="btn-group">
-        <button class="btn btn-success" onclick="addForm('/products')"> Tambah</button>
-        <button class="btn btn-danger" id="delete_all" onclick="delete_all('/delete_all_products')">Hapus Banyak</button>
-        <button class="btn btn-info" onclick="print_barcode('/print_barcode')">Cetak Barcode</button>
+        <button class="btn btn-success" onclick="addForm('/products')"> <i class="fas fa-plus-circle"></i> Tambah Produk</button>
+        <button class="btn btn-danger" id="delete_all" onclick="delete_all('/delete_all_products')"><i class="fas fa-trash"></i> Hapus Banyak</button>
+        <button class="btn btn-info" onclick="print_barcode('/print_barcode')"><i class="fas fa-print"></i> Cetak Barcode</button>
       </div>
 
       <div class="card mt-3">

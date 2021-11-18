@@ -13,7 +13,7 @@
           @method('post')
           <div class="form-group">
             <label for="name" class="col-form-label">Nama:</label>
-            <input type="text" class="form-control" id="name" name="name">
+            <input type="text" class="form-control" id="name" name="name" autocomplete="off">
             <div class="invalid-feedback"></div>
           </div>
         </div>

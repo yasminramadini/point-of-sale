@@ -47,6 +47,9 @@ class PurchaseController extends Controller
             ->addColumn('total_price', function($purchases) {
               return 'Rp ' . number_format($purchases->total_price, 0, ',', '.');
             })
+            ->addColumn('discount', function($purchases) {
+              return $purchases->discount . '%';
+            })
             ->addColumn('paid', function($purchases) {
               return 'Rp ' . number_format($purchases->paid, 0, ',', '.');
             })
@@ -61,7 +64,7 @@ class PurchaseController extends Controller
                 </div>
               ';
             })
-            ->rawColumns(['aksi', 'paid', 'total_price', 'created_at'])
+            ->rawColumns(['aksi', 'paid', 'total_price', 'created_at', 'discount'])
             ->make(true);
     }
 

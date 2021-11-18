@@ -23,7 +23,7 @@
   <section class="content">
     <div class="container-fluid">
       
-      <button class="btn btn-success" id="addForm" onclick="addForm('/categories')"><i class="fas fa-plus-circle"></i> Tambah</button>
+      <button class="btn btn-success" id="addForm" onclick="addForm('/categories')"><i class="fas fa-plus-circle"></i> Tambah Kategori</button>
 
       <div class="card mt-3">
         <div class="card-body table-responsive">
